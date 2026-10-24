@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{PAGE_DESCRIPTION}}">
+    <title>{{PAGE_TITLE}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="{{PAGE_STYLESHEET}}">
+    <script src="source.js" defer></script>
+</head>
+<body class="{{BODY_CLASS}}">
+<header class="site-header" id="accueil">
+    <div class="header-inner">
+        <a class="brand" href="index.html#accueil" aria-label="GS Impact Lab, accueil">
+            <img src="images/logo.png" width="90" height="70" alt="GS Impact Lab">
+            <span class="brand-copy"><span class="brand-name">IMPACT <span>LAB</span></span><span class="brand-tagline">Le laboratoire d’impact digital<br>de communication en Afrique</span></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span></button>
+        <nav class="primary-nav" id="primary-nav" aria-label="Navigation principale">
+            <a href="index.html">Accueil</a>
+            <a href="gs.html#apropos">À propos</a>
+            <a href="gs.html#services">Services</a>
+            <a href="gs.html#evenements">Événements</a>
+            <a href="gs.html">GSImpactLab</a>
+        </nav>
+        <a class="button button-gold header-cta" href="index.html#contact">Prendre contact</a>
+        <a class="search-link" href="gs.html#formations" aria-label="Voir les formations"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg></a>
+    </div>
+</header>
+
+{{MAIN_CONTENT}}
+
+<footer class="site-footer" id="evenements">
+    <div class="footer-main">
+        <section class="footer-about" aria-labelledby="footer-brand-title">
+            <a class="brand footer-brand" href="index.html#accueil" aria-label="GS Impact Lab, accueil">
+                <img src="images/logo.png" width="90" height="70" alt="">
+                <span class="brand-copy"><span class="brand-name" id="footer-brand-title">IMPACT <span>LAB</span></span><span class="brand-tagline">Le laboratoire d’impact digital<br>de communication en Afrique</span></span>
+            </a>
+            <h2>À propos</h2>
+            <p>Nous aidons les entreprises et les particuliers à développer leurs compétences, leur visibilité et leur impact.</p>
+            <h2 class="footer-contact-title">Contact</h2>
+            <a class="footer-contact-link" href="tel:+22999999999"><span aria-hidden="true">☎</span> +229 99 99 99 99</a>
+            <a class="footer-contact-link" href="mailto:contact@gsimpactlab.com"><span aria-hidden="true">✉</span> contact@gsimpactlab.com</a>
+        </section>
+        <nav class="footer-column" aria-label="Informations">
+            <h2>Informations</h2>
+            <a href="gs.html#apropos">À propos</a>
+            <a href="gs.html#formations">Formations</a>
+            <a href="gs.html#temoignages">Témoignages</a>
+            <a href="gs.html#evenements">Événements</a>
+        </nav>
+        <nav class="footer-column" aria-label="Liens utiles">
+            <h2>Liens utiles</h2>
+            <a href="gs.html#services">Nos services</a>
+            <a href="index.html#contact">Nous contacter</a>
+            <a href="gs.html#formations">Nos programmes</a>
+            <a href="index.html#contenus">Le blog</a>
+        </nav>
+        <section class="footer-newsletter" aria-labelledby="newsletter-title">
+            <h2 id="newsletter-title">Recevoir nos actualités</h2>
+            <p>Des idées et des ressources pour faire grandir votre impact.</p>
+            <form class="newsletter-form" action="#" method="get">
+                <label class="visually-hidden" for="newsletter-email">Votre adresse e-mail</label>
+                <input id="newsletter-email" name="email" type="email" placeholder="Votre adresse e-mail" required>
+                <button type="submit">S’inscrire</button>
+            </form>
+        </section>
+    </div>
+    <div class="footer-bottom">
+        <div class="social-links" aria-label="Réseaux sociaux">
+            <a href="https://www.linkedin.com/in/genevi%C3%A8ve-hermione-sodjo-124965294?originalSubdomain=bj" aria-label="LinkedIn">in</a>
+            <a href="https://www.instagram.com/sodjo_genevieve/" aria-label="Instagram">◎</a>
+            <a href="https://www.facebook.com/genevieve.sodjo.2025/" aria-label="Facebook">f</a>
+        </div>
+        <span class="footer-copyright">© 2026 GS Impact Lab. Tous droits réservés.</span>
+    </div>
+</footer>
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+</body>
+</html>
