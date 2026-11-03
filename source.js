@@ -1,25 +1,78 @@
-async function loadSharedTemplate() {
-	try {
-		const response = await fetch("template.html");
-		if (!response.ok) throw new Error(`Chargement du template impossible (${response.status})`);
-		const template = document.createElement("template");
-		template.innerHTML = await response.text();
+function initializeStatsCounters() {
+	const counters = [...document.querySelectorAll(".about-content .stats strong")];
+	if (
+		!counters.length
+		|| window.matchMedia("(prefers-reduced-motion: reduce)").matches
+		|| !("IntersectionObserver" in window)
+	) return;
 
-		const headerMount = document.querySelector('[data-template="header"]');
-		const footerMount = document.querySelector('[data-template="footer"]');
-		const header = template.content.querySelector(".site-header");
-		const footer = template.content.querySelector(".site-footer");
-		if (headerMount && header) headerMount.replaceWith(header.cloneNode(true));
-		if (footerMount && footer) footerMount.replaceWith(footer.cloneNode(true));
-		setActiveNavigation();
-	} catch (error) {
-		console.error("Le header et le footer communs n’ont pas pu être chargés.", error);
-		return;
-	}
+	const observer = new IntersectionObserver((entries, currentObserver) => {
+		entries.forEach((entry) => {
+			if (!entry.isIntersecting) return;
 
-	initializeMenu();
-	initializeHeaderScroll();
-	initializeTestimonials();
+			const counter = entry.target;
+			const match = counter.textContent.trim().match(/^([^\d]*)(\d+)(.*)$/);
+			if (!match) {
+				currentObserver.unobserve(counter);
+				return;
+			}
+
+			const [, prefix, targetText, suffix] = match;
+			const target = Number(targetText);
+			const duration = 3400;
+			const startTime = performance.now();
+
+			const updateCounter = (currentTime) => {
+				const progress = Math.min((currentTime - startTime) / duration, 1);
+				const easedProgress = 1 - (1 - progress) ** 4;
+				const currentValue = Math.round(target * easedProgress);
+				counter.textContent = `${prefix}${currentValue}${suffix}`;
+
+				if (progress < 1) {
+					requestAnimationFrame(updateCounter);
+				} else {
+					counter.textContent = `${prefix}${targetText}${suffix}`;
+				}
+			};
+
+			currentObserver.unobserve(counter);
+			requestAnimationFrame(updateCounter);
+		});
+	}, {
+		threshold: 0.5
+	});
+
+	counters.forEach((counter) => observer.observe(counter));
+}
+
+function initializeScrollReveals() {
+	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+	const revealElements = [...document.querySelectorAll(
+		"main h2, main h3, main p, main .expertise-item, main .course-card, main .reason-list article, main .quote-card, main .stats > div, .site-footer h2, .site-footer p, .site-footer .footer-column a, .site-footer .footer-contact-link"
+	)].filter((element) => (
+		!element.closest(".hero, .carousel-item")
+		&& !element.closest("[hidden]")
+	));
+
+	if (!("IntersectionObserver" in window)) return;
+
+	const observer = new IntersectionObserver((entries, currentObserver) => {
+		entries.forEach((entry) => {
+			if (!entry.isIntersecting) return;
+			entry.target.classList.add("is-visible");
+			currentObserver.unobserve(entry.target);
+		});
+	}, {
+		threshold: 0.12,
+		rootMargin: "0px 0px -36px 0px"
+	});
+
+	revealElements.forEach((element, index) => {
+		element.classList.add("scroll-reveal");
+		element.style.setProperty("--reveal-delay", `${(index % 5) * 70}ms`);
+		observer.observe(element);
+	});
 }
 
 function initializeHeaderScroll() {
@@ -74,6 +127,13 @@ function initializeMenu() {
 	});
 }
 
+function initializeContactFormRedirect() {
+	const messageForm = document.querySelector(".footer-message-form");
+	if (!messageForm) return;
+
+	messageForm.elements["_next"].value = new URL("merci.html", window.location.href).href;
+}
+
 function initializeTestimonials() {
 	const cards = [...document.querySelectorAll(".quote-card")];
 	const dots = [...document.querySelectorAll(".carousel-dots button")];
@@ -101,4 +161,10 @@ function initializeTestimonials() {
 	dots.forEach((dot, index) => dot.addEventListener("click", () => showPage(index)));
 }
 
-loadSharedTemplate();
+setActiveNavigation();
+initializeMenu();
+initializeContactFormRedirect();
+initializeHeaderScroll();
+initializeTestimonials();
+initializeScrollReveals();
+initializeStatsCounters();
